@@ -1,0 +1,29 @@
+
+<mat-toolbar color="primary">
+  <a
+    *ngIf ="!loginService.isLoggedIn()" [routerLink]="'/login'">
+    <img class= "label" src="../../../assets/logo-mark.png" width="25" height="25">
+  </a>
+  <a
+    *ngIf ="loginService.isLoggedIn()" (click)="onClickPerfilButton()"
+    mat-icon-button class="example-icon" arial-label="Example icon-button with menu icon">
+    <img class="label" src="../../../assets/logo-mark.png" width="60" height="60">
+  </a>
+  <span>INFO-RH</span>
+  <span class="example-spacer"></span>
+
+
+  <button *ngIf ="!loginService.isLoggedIn()" mat-button [routerLink]="'/login'" > <span>Iniciar Sesión</span>
+  </button>
+  <button *ngIf ="!loginService.isLoggedIn()" mat-button [routerLink]="'/signup'" > <span>Registrarse</span>
+  </button>
+  <button  *ngIf = "isLoggedIn && user" mat-button  (click)="onClickPerfilButton()"  >  <span  > {{this.user.username}} </span>
+    <mat-icon>account_box</mat-icon>
+  </button>
+  <button *ngIf ="loginService.isLoggedIn()" (click) = "logout()" mat-button >  <span>Cerrar sesión</span>
+    <mat-icon>exit_to_app</mat-icon>
+  </button>
+
+
+
+</mat-toolbar>

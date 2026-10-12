@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  backend:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    # Variables are listed in stack.env.example
+    env_file:
+      - stack.env
+    ports:
+      - "8080:8080"

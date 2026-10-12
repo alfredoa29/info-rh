@@ -1,0 +1,37 @@
+.table{
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table tr td{
+  padding: 15px 10px;
+  border: 0.5px solid gainsboro;
+}
+.mat-icon-button.mat-success {
+  color:#155724;
+}
+
+.mat-table-container{
+  padding: 3%;
+
+}
+
+.mat-table-wrapper-tables{
+  padding: 2%;
+  width: 50%;
+  display: inline-block;
+  aling:right;
+  margin: 10px;
+  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12)
+}
+
+.div-wrapper{
+  display: flex;
+
+
+}
+
+
+.mat-elevation-z8{
+  max-width: 90%;
+}

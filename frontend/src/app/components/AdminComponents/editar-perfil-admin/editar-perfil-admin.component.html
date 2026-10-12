@@ -1,0 +1,103 @@
+
+
+<mat-card class="mat-table-container">
+  <h1>Actualizar datos del usuario </h1>
+<mat-card class="example-card">
+  <mat-card-header>
+
+
+
+    <mat-card-title>Actualizar datos del usuario: {{user.firstName}}</mat-card-title>
+    <br><br><br><br>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="example-container">
+    <form (ngSubmit)="formSubmit()" [formGroup]="userFormGroup"  >
+
+      <mat-form-field  appearance="fill">
+
+        <mat-label>Nombre</mat-label>
+        <input matInput  id="nombre" formControlName="firstName" name="nombre" [(ngModel)] = "user.firstName">
+        <mat-error *ngIf="userFormGroup.controls.firstName.errors?.['required']">Debe de colocar su nombre ( minimo 3 caracteres). </mat-error>
+        <mat-error *ngIf="userFormGroup.controls.firstName.errors?.['minlength']">Debe de colocar su nombre ( minimo 3 caracteres). </mat-error>
+        <mat-error *ngIf="userFormGroup.controls.firstName.errors?.['maxlength']">Debe de colocar su nombre ( minimo 20 caracteres). </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Apellido</mat-label>
+        <input [(ngModel)]= "user.lastName"  formControlName="lastName"  name = "apellido" matInput  >
+        <mat-error *ngIf="userFormGroup.controls.lastName.errors?.['required']">Debe de colocar su apellido ( minimo 3 caracteres). </mat-error>
+        <mat-error *ngIf="userFormGroup.controls.lastName.errors?.['minlength']">Debe de colocar su apellido ( minimo 3 caracteres). </mat-error>
+        <mat-error *ngIf="userFormGroup.controls.lastName.errors?.['maxlength']">Debe de colocar su apellido ( minimo 20 caracteres). </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Correo</mat-label>
+        <input  [(ngModel)]= "user.email"  formControlName="email"  name = "email" type="email" matInput  >
+        <mat-error *ngIf="userFormGroup.controls.email.errors?.['required']">Debe de colocar una correo valido. </mat-error>
+        <mat-error *ngIf="userFormGroup.controls.email.errors?.['email']">Formato de correo no valio, ejemplo correo@example.com. </mat-error>
+
+
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Username</mat-label>
+        <input  [(ngModel)]= "user.username" formControlName="username"  name = "username" type="username" matInput  >
+        <mat-error *ngIf="userFormGroup.controls.username.errors?.['required']">Debe de colocar el nombre de usuario ( minimo 3 caracteres). </mat-error>
+        <mat-error *ngIf="userFormGroup.controls.username.errors?.['minlength']">Debe de colocar el nombre de usuario ( minimo 3 caracteres). </mat-error>
+
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Seleccionar un rol</mat-label>
+        <mat-select [(value)]="selected" (selectionChange)="changeClient($event.value)"  formControlName="selected">
+        <mat-option *ngFor="let role of roles" [value]="role.name">
+         {{role.name}}
+        </mat-option>
+        </mat-select>
+
+      </mat-form-field>
+
+<div class="button-actualizar">
+  <button mat-raised-button type="submit" color="primary">Actualizar</button>
+  <button mat-raised-button [routerLink]="'/admin/usuarios'">Cancelar</button>
+</div>
+
+    </form>
+    </div>
+  </mat-card-content>
+
+</mat-card>
+  <br>
+  <mat-card class="example-card">
+    <mat-card-header>
+    <mat-card-title>Cambiar contraseña del usuario: {{user.firstName}}</mat-card-title>
+      </mat-card-header>
+    <br><br>
+    <div class="example-container">
+      <mat-card-content>
+      <form (ngSubmit)="formSubmitPassword()"  >
+
+        <mat-form-field  appearance="fill">
+          <mat-label>Contraseña</mat-label>
+          <input matInput  id="contrasenna" name="contrasenna" type="password"  [formControl]="newPassword"  [(ngModel)] = "ChangePassword.newPassword">
+          <mat-error *ngIf="newPassword.invalid">{{getErrorMessagePasswordForm()}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field  appearance="fill">
+          <mat-label>Confirmar Contraseña</mat-label>
+          <input matInput  id="confcontrasenna" name="confcontrasenna" type="password" [(ngModel)] = "ChangePassword.confirmPassword">
+
+        </mat-form-field>
+
+
+        <div class="button-actualizar">
+          <button mat-raised-button type="submit" color="primary">Actualizar</button>
+          <button mat-raised-button type="reset" >Limpiar</button>
+        </div>
+
+      </form>
+      </mat-card-content>
+    </div>
+
+  </mat-card>
+</mat-card>

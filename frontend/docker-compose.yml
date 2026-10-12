@@ -1,0 +1,15 @@
+version: '1.0'
+
+services:
+  backend:
+    build:
+      #  context: ./
+      dockerfile: Dockerfile
+    restart: always
+    #env_file: "frontend.env" # local development
+    env_file:
+       - frontend.env
+
+    ports:
+      - "4200:80"
+

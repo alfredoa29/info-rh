@@ -1,0 +1,44 @@
+tr.approved { background-color: green }
+tr.rejected { background-color: red }
+
+.chip{
+  background-color: #3f51b5;
+  color: #fff;
+}
+.aceptado-chip{
+  background-color: yellowgreen;
+}
+.mat-card-container{
+  padding: 3%;
+}
+
+.mat-card-wrapper-tables{
+  padding: 1%;
+}
+.mat-raised-button-vacaciones{
+  margin: 6px;
+}
+.mat-table-container{
+  padding: 3%;
+
+}
+
+
+
+.mat-elevation-z8{
+  max-width: 90%;
+}
+.stepper-header-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.demo-inline-calendar-card {
+  width: 300px;
+}
+button.example-custom-date-class {
+  background: orange;
+  border-radius: 100%;
+}

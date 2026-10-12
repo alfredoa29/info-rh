@@ -1,0 +1,54 @@
+<div class="bootstrap-wrapper">
+  <div class="container">
+    <div class="row mt10">
+      <div class="col-md-6 offset-md-3">
+        <mat-card class="example-container">
+          <mat-card-content >
+          <div class="container  text-center">
+          <img src="../../../assets/logo.png" width="340" height="200">
+          </div>
+
+          <h1 class="text-center"><strong>Inicio de Sesión </strong> </h1>
+            <div class="form-container">
+
+
+          <form (ngSubmit)="formSubmit()" >
+            <mat-form-field class="full-width"  appearance = "fill">
+              <mat-icon matPrefix>person</mat-icon>
+
+              <input [(ngModel)]="loginData.username"  required name = "username" matInput placeholder="Usuario">
+
+
+            </mat-form-field>
+            <br><br>
+            <mat-form-field class="full-width"  appearance = "fill">
+              <mat-icon matPrefix>lock</mat-icon>
+
+              <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="loginData.password" required type="password" name = "password" matInput placeholder="Contraseña">
+
+            </mat-form-field>
+            <br><br>
+            <div class="container text-center" >
+              <button type = "submit" class="button-signin" mat-raised-button color="primary"><strong>Iniciar sesión</strong></button>
+            </div>
+          </form>
+              <button  mat-button  color="primary"   [routerLink]="'/recuperar-clave'"><span> He olvidado mi contraseña</span></button>
+            </div>
+
+
+
+          </mat-card-content>
+        </mat-card>
+
+      </div>
+    </div>
+  </div>
+  <ngx-spinner
+    bdColor="rgba(51,51,51,0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-scale-multiple"
+  >
+    <p style="font-size: 20px; color: white">Cargando...</p>
+  </ngx-spinner>
+</div>

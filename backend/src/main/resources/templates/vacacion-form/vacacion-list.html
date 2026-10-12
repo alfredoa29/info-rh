@@ -1,0 +1,153 @@
+<div class="table-responsive">
+
+
+    <table id="vacacionList" class="table table-bordered table-hover table-striped">
+        <div class="alert alert-success text-center d-none"  id="successMessage"  >Success MEssage</div>
+        <div class="alert alert-danger text-center d-none"  id="errorMessage" >Error MEssage</div>
+        <thead class="thead-light">
+        <tr>
+            <span th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" >
+            <th scope="col">#</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Estado</th>
+             <th scope="col">Solicitante</th>
+            <th scope="col"># Días</th>
+            <th scope="col">Fecha Inicio</th>
+            <th scope="col">Fecha Final</th>
+            </span>
+
+            <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" >
+
+            <th scope="col">#</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Estado</th>
+             <th scope="col">Solicitante</th>
+            <th scope="col"># Días</th>
+            <th scope="col">Fecha Inicio</th>
+            <th scope="col">Fecha Final</th>
+              <th scope="col">Aceptación</th>
+                </span>
+
+        </tr>
+        </thead>
+        <tbody>
+        <span th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" >
+        <tr th:each="solicitud:${vacacionList}">
+            <td th:text="${solicitud.id}"></td>
+
+            <td th:text="${solicitud.fechaManager}"></td>
+            <td th:text="${solicitud.estado}"></td>
+            <td th:text="${solicitud.usuario.firstName}"></td>
+            <td th:text="${solicitud.vacacion.numDias}"></td>
+            <td th:text="${solicitud.vacacion.fechaInicio}"></td>
+            <td th:text="${solicitud.vacacion.fechaFinal}"></td>
+
+
+
+        </tr>
+             </span>
+
+        <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" >
+        <tr th:each="solicitud:${vacacionAllSolicitudes}">
+            <td th:text="${solicitud.id}"></td>
+
+            <td th:text="${solicitud.fechaManager}"></td>
+            <td th:text="${solicitud.estado}"></td>
+            <td th:text="${solicitud.usuario.firstName}" ></td>
+            <td th:text="${solicitud.vacacion.numDias}"></td>
+            <td th:text="${solicitud.vacacion.fechaInicio}"></td>
+            <td th:text="${solicitud.vacacion.fechaFinal}"></td>
+
+
+
+              <td>
+                <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"> |
+                <a href="#" th:onclick="'javascript:aceptarSolicitudVacacion(\''+${solicitud.id}+'\');'"> <i class="fas fa-check-circle"></i></a>
+                </span>
+
+                  <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" > |
+                      <a href="#" th:onclick="'javascript:rechazarSolicitudVacacion(\''+${solicitud.id}+'\');'"> <i class="fas fa-window-close"></i></a>
+                </span>
+
+              </td>
+
+        </tr>
+
+             </span>
+
+        </tbody>
+
+    </table>
+
+    <script type="text/javascript">
+        function aceptarSolicitudVacacion(idSolicitud){
+            var params = {};
+
+            params["id"] = idSolicitud;
+            console.log(idSolicitud);
+
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/vacacionForm/aceptar",
+                data: JSON.stringify(params),
+                dataType: 'text',
+                cache: false,
+                timeout: 600000,
+                success: async function (data) {
+
+                    $("#errorMessage").addClass("d-none");
+                    $("#successMessage").removeClass("d-none");
+                    $("#successMessage").html("Solicitud aceptada correctamente!.");
+
+                    setTimeout(function(){ window.location.href = '/vacacionForm'; }, 2000);
+                },
+                error: function (e) {
+                    $("#errorMessage").addClass( "d-none" );
+                    $("#errorMessage").removeClass( "d-none" );
+                    $("#errorMessage").html(e.responseText);
+                }
+            });
+
+        }
+
+    </script>
+
+    <script type="text/javascript">
+        function rechazarSolicitudVacacion(idSolicitud){
+            var params = {};
+
+            params["id"] = idSolicitud;
+            console.log(idSolicitud);
+
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/vacacionForm/rechazar",
+                data: JSON.stringify(params),
+                dataType: 'text',
+                cache: false,
+                timeout: 600000,
+                success: async function (data) {
+
+                    $("#errorMessage").addClass("d-none");
+                    $("#successMessage").removeClass("d-none");
+                    $("#successMessage").html("Solicitud rechazada correctamente!.");
+
+                    setTimeout(function(){ window.location.href = '/vacacionForm'; }, 2000);
+                },
+                error: function (e) {
+                    $("#errorMessage").addClass( "d-none" );
+                    $("#errorMessage").removeClass( "d-none" );
+                    $("#errorMessage").html(e.responseText);
+                }
+            });
+
+        }
+
+    </script>
+
+
+
+</div>
+

@@ -1,0 +1,13 @@
+.example-spacer{
+  flex: 1 1  auto;
+}
+
+.mat-toolbar.mat-primary {
+  background: #085fa6;
+  color: #fff;
+}
+.label{
+ border-radius: 50px;
+ margin-right: 8px;
+}
+

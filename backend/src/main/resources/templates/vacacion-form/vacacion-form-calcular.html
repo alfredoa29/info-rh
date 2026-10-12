@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>form ver vacaciones</title>
+</head>
+<body>
+
+<div class="vacation">
+
+    <form class="form" id="vacacionFormEnviar" role="form" autocomplete="off"  th:object="${vacacionForm}"  method="post">
+        <!--Es necesario para poder pasar la validacion del Model-->
+
+
+        <!--quita el comentario si quieres mantener la validacion @NotBlank del campo confirmPassword
+             <input class="form-control" type=hidden name="confirmPassword" value="xxxx" th:if="${editMode}">
+         -->
+
+        <div class="form-group row">
+            <label class="col-lg-3 col-form-label form-control-label"> Procesar Vacaciones </label>
+            <div class="col-lg-25 text-right">
+
+
+
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-lg-3 col-form-label form-control-label"> Dias a disfrutar:</label>
+            <div class="col-lg-2">
+                <input class="form-control" type="number" th:field="${vacacionForm.numDias}" disabled>
+                <div class="alert-danger" th:if="${#fields.hasErrors('numDias')}" th:errors="*{numDias}">Name Error</div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-lg-3 col-form-label form-control-label">Fecha desde:</label>
+            <div class="col-lg-3">
+                <input class="form-control" type="date" th:field="${vacacionForm.fechaInicio}" disabled>
+                <div class="alert-danger" th:if="${#fields.hasErrors('fechaInicio')}" th:errors="*{fechaInicio}">Name Error</div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-lg-3 col-form-label form-control-label">Fecha hasta: </label>
+            <div class="col-lg-3">
+                <input class="form-control" type="date" th:field="${vacacionForm.fechaFinal}" disabled>
+
+                <div class="alert-danger" th:if="${#fields.hasErrors('fechaFinal')}" th:errors="*{fechaFinal}">Name Error</div>
+            </div>
+        </div>
+        <div class="col-lg-25 text-right">
+
+            <a class="btn btn-secondary" th:href="@{'/vacacionForm/cancel'}"> Cancel</a>
+
+            <button type="button" onClick="crearSolicitudVacacion()" class="btn btn-primary">Procesar</button>
+
+        </div>
+
+
+        <div class="alert alert-success text-center d-none"  id="successMessageForm"  >Success MEssage</div>
+        <div class="alert alert-danger text-center d-none"  id="errorMessageForm" >Error MEssage</div>
+    </form>
+    </form>
+</div>
+
+</body>
+<script type="text/javascript">
+     function crearSolicitudVacacion(){
+        var params = {};
+
+        params["numDias"] = $("#numDias").val();
+        params["fechaInicio"] = $("#fechaInicio").val();
+        params["fechaFinal"] = $("#fechaFinal").val();
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: "/vacacionForm/crearSolicitud",
+            data: JSON.stringify(params),
+            dataType: 'text',
+            cache: false,
+            timeout: 60000,
+            success: async function (data) {
+                $("#errorMessageForm").addClass("d-none");
+                $("#successMessageForm").removeClass("d-none");
+                $("#successMessageForm").html("Solicitud creada correctamente!.");
+
+                setTimeout(function(){ window.location.href = '/vacacionForm'; }, 4000);
+            },
+            error: function (e) {
+                $("#errorMessageForm").addClass( "d-none" );
+                $("#errorMessageForm").removeClass( "d-none" );
+                $("#errorMessageForm").html(e.responseText);
+            }
+        });
+
+    }
+</script>
+</html>
